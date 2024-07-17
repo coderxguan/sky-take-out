@@ -5,6 +5,8 @@ import com.sky.dto.DishPageQueryDTO;
 import com.sky.result.PageResult;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * 功能:
  * 作者:
@@ -18,4 +20,7 @@ public interface DishService {
 
     // 菜品分页查询
     PageResult pageQuery(DishPageQueryDTO dishPageQueryDTO);
+
+    // 菜品批量删除
+    void deleteBatch(List<Long> ids);
 }
