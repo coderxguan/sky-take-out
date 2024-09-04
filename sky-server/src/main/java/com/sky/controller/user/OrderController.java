@@ -37,12 +37,6 @@ public class OrderController {
         return Result.success(orderSubmitVO);
     }
 
-    /**
-     * 订单支付
-     *
-     * @param ordersPaymentDTO
-     * @return
-     */
     @PutMapping("/payment")
     @ApiOperation("订单支付")
     public Result<OrderPaymentVO> payment(@RequestBody OrdersPaymentDTO ordersPaymentDTO) throws Exception {
@@ -57,7 +51,6 @@ public class OrderController {
         return Result.success(orderPaymentVO);
     }
 
-
     @GetMapping("/historyOrders")
     @ApiOperation("历史订单分页查询")
     public Result<PageResult> page(int page, int pageSize, Integer status) {
@@ -67,8 +60,16 @@ public class OrderController {
 
     @GetMapping("/orderDetail/{id}")
     @ApiOperation("查询订单详情")
-    public Result<OrderVO> detail(@PathVariable Integer id){
+    public Result<OrderVO> detail(@PathVariable Long id){
         OrderVO orderVO = orderService.details(id);
         return Result.success(orderVO);
     }
+
+    @PutMapping("/cancel/{id}")
+    @ApiOperation("取消订单")
+    public Result cancel(@PathVariable Long id) throws Exception {
+        orderService.userCancelById(id);
+        return Result.success();
+    }
+
 }

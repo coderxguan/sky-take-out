@@ -29,5 +29,7 @@ public interface OrderService {
     PageResult pageQuery4User(int page, int pageSize, Integer status);
 
     // 查询订单详情
-    OrderVO details(Integer id);
+    OrderVO details(Long id);
+
+    void userCancelById(Long id) throws Exception;
 }
