@@ -28,4 +28,8 @@ public interface OrderMapper {
 
     // 订单分页查询
     Page<Orders> pageQuery(OrdersPageQueryDTO ordersPageQueryDTO);
+
+    // 根据ID查订单
+    @Select("select * from orders where id = #{id}")
+    Orders getById(Integer id);
 }

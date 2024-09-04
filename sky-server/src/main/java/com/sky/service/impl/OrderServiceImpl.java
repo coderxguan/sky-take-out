@@ -86,11 +86,12 @@ public class OrderServiceImpl implements OrderService {
         orders.setNumber(String.valueOf(System.currentTimeMillis()));
         orders.setPhone(addressBook.getPhone());
         orders.setConsignee(addressBook.getConsignee());
+        orders.setAddress(addressBook.getDetail());
         orders.setUserId(userId);
 
         orderMapper.insert(orders);
 
-        List<OrderDetail> orderDetailList = new ArrayList<OrderDetail>();
+        List<OrderDetail> orderDetailList = new ArrayList<>();
 
         // 向订单明细表插入n条数据
         for (ShoppingCart cart : shoppingCartList) {
@@ -197,5 +198,15 @@ public class OrderServiceImpl implements OrderService {
         }
 
         return new PageResult(page.getTotal(), list);
+    }
+
+    @Override
+    public OrderVO details(Integer id) {
+        Orders orders = orderMapper.getById(id);
+        OrderVO orderVO = new OrderVO();
+        List<OrderDetail> orderdetailList = orderDetailMapper.getByOrderId(id);
+        BeanUtils.copyProperties(orders, orderVO);
+        orderVO.setOrderDetailList(orderdetailList);
+        return orderVO;
     }
 }
